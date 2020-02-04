@@ -1,11 +1,23 @@
 <?php
 
-namespace app\models;
+namespace app\models\base;
 
 
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
+/**
+ * Class Posts
+ * @package app\models\base
+ *
+ * @property $id integer
+ * @property $title string
+ * @property $content string
+ * @property $is_visible bool
+ * @property $created_at integer
+ * @property $updated_at integer
+ * @property $published_at integer
+ */
 class Posts extends ActiveRecord
 {
     public function rules()
@@ -42,9 +54,9 @@ class Posts extends ActiveRecord
             'title' => \Yii::t('main', 'Post title'),
             'content' => \Yii::t('main', 'Post content'),
             'is_visible' => \Yii::t('main', 'Is the post visible'),
-            'created_at' => \Yii::t('main', 'ID Post'),
-            'updated_at' => \Yii::t('main', 'ID Post'),
-            'published_at' => \Yii::t('main', 'ID Post'),
+            'created_at' => \Yii::t('main', 'Creation date'),
+            'updated_at' => \Yii::t('main', 'Update date'),
+            'published_at' => \Yii::t('main', 'Publication Date'),
         ];
     }
 }

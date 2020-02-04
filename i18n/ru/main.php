@@ -14,4 +14,8 @@ return [
 
     'Login' => 'Войти',
     'Logout' => 'Выйти',
+
+    'Is visible' => 'Виден',
+    'Is hidden' => 'Скрыт',
+    'Not published' => 'Не опубликовано',
 ];
