@@ -23,7 +23,7 @@ class Posts extends ActiveRecord
     public function rules()
     {
         return [
-            ['title', 'require'],
+            ['title', 'required'],
             [['title', 'content'], 'string'],
             [['published_at', 'created_at', 'updated_at'], 'integer'],
             ['is_visible', 'boolean'],

@@ -12,7 +12,14 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="posts-list">
 
-    <h1><?= Html::encode($this->title); ?></h1>
+    <div>
+        <h1><?= Html::encode($this->title); ?></h1>
+        <div class="text-right">
+            <?= Html::a(Yii::t('main', 'Create post'), ['/admin/posts/create'], ['class' => 'btn btn-success']); ?>
+        </div>
+    </div>
+
+
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -49,7 +56,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => static function (PostSearch $model){
                     return empty($model->published_at)
-                        ? Html::tag('span',Yii::t('main', 'Not published'), ['class' => 'text-danger'])
+                        ? Html::a(
+                            Yii::t('main', 'Publish'),
+                            ['/admin/posts/published', 'id' => $model->id],
+                            [
+                                'data' => [
+                                    'method' => 'post',
+                                    'params' => [
+                                        'id' => $model->id,
+                                    ],
+                                    'confirm' => Yii::t('main', 'Confirm post publication')
+                                ],
+                                'class' => 'btn btn-success',
+                            ]
+                        )
                         : Yii::$app->formatter->asDate($model->published_at, \Yii::$app->params['dateFormatForGrid']);
                 }
             ],
