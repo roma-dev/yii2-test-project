@@ -27,7 +27,7 @@ class PostSearch extends Posts
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => \Yii::$app->params['paginatorPageSize'],
+                'pageSize' => \Yii::$app->params['paginatorPageSizeForDashboard'],
             ],
         ]);
 
@@ -47,7 +47,7 @@ class PostSearch extends Posts
             }
         }
 
-        if ($this->is_visible !== '') {
+        if (isset($params['PostSearch']['is_visible'])) {
             $query->andFilterWhere(['is_visible' => (int)$this->is_visible]);
         }
 

@@ -1,6 +1,10 @@
 <?php
 
 return [
+
+    'Blog' => 'Блог',
+    'My blog' => 'Мой блог',
+
     'ID Post' => 'ID Поста',
     'Post title' => 'Заголовок',
     'Post content' => 'Контент',
@@ -36,4 +40,6 @@ return [
     // messages
     'Confirm post publication' => 'Подтвердите публикацию поста',
     'Confirm post deletion' => 'Подтвердите удаление поста',
+
+    'More details' => 'Подробнее',
 ];

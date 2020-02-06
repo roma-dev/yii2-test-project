@@ -20,6 +20,9 @@ use yii\db\ActiveRecord;
  */
 class Posts extends ActiveRecord
 {
+    const POST_HIDDEN = 0;
+    const POST_VISIBLE = 1;
+
     public function rules()
     {
         return [
@@ -27,6 +30,7 @@ class Posts extends ActiveRecord
             [['title', 'content'], 'string'],
             [['published_at', 'created_at', 'updated_at'], 'integer'],
             ['is_visible', 'boolean'],
+            ['is_visible', 'default', 'value' => self::POST_HIDDEN],
             ['title', 'string', 'max' => 255]
         ];
     }

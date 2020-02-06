@@ -9,6 +9,7 @@ use Yii;
 use yii\base\ErrorException;
 use yii\base\Exception;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 
 class PostsController extends Admin
 {
@@ -32,6 +33,8 @@ class PostsController extends Admin
         $searchModel = new PostSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        Url::remember();
+
         return $this->render('list', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -40,6 +43,8 @@ class PostsController extends Admin
 
     public function actionView($id)
     {
+        Url::remember();
+
         return $this->render('view', ['model' => $this->findPost($id)]);
     }
 
@@ -63,7 +68,7 @@ class PostsController extends Admin
 
         if ($post->save()) {
             Yii::$app->session->addFlash('success', Yii::t('main', 'Data updated'));
-            return $this->redirect(['view', 'id' => $id]);
+            return $this->redirect([Url::previous(), 'id' => $id]);
         }
 
         return $this->render('view', ['model' => $post]);
