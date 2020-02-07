@@ -2,7 +2,10 @@
 
 namespace app\controllers;
 
+use app\models\Posts;
 use Yii;
+use yii\base\ErrorException;
+use yii\data\Pagination;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
@@ -54,15 +57,36 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
     public function actionIndex()
     {
-        return $this->render('index');
+        $query = Posts::find()
+            ->where(['is_visible' => Posts::POST_VISIBLE]);
+
+        $pages = new Pagination([
+            'totalCount' => $query->count(),
+            'pageSize' => \Yii::$app->params['paginatorPageSize']
+        ]);
+        $models = $query->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+
+        return $this->render('index', [
+            'posts' => $models,
+            'pages' => $pages,
+        ]);
     }
+
+    public function actionPost($id)
+    {
+        $post = Posts::getVisiblePost($id);
+
+        if ($post instanceof Posts) {
+            return $this->render('post', ['post' => $post]);
+        }
+
+        throw new ErrorException(\Yii::t('main', 'Not found model: {0}', [Posts::class]));
+    }
+
 
     /**
      * Login action.
