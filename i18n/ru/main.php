@@ -47,6 +47,9 @@ return [
     'User with such login not found' => 'Пользователь с таким логином не найден',
     'You need to confirm your email' => 'Вам необходимо подтвердить свой емаил',
     'A user with this login is banned' => 'Пользователь с таким логином забанен',
+    'Could not create role: {roleName}' => 'Не удалось создать роль: {roleName}',
+    'Role not found: {roleName}' => 'Роль не найден: {roleName}',
+    'User not found: {0}' => 'Пользователь не найден: {0}',
 
     // messages
     'Confirm post publication' => 'Подтвердите публикацию поста',

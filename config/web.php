@@ -60,6 +60,9 @@ $config = [
                 'post/<id:\d+>' => 'site/post',
             ],
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ]
     ],
     'params' => $params,
 ];

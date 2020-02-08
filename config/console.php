@@ -26,6 +26,18 @@ $config = [
             ],
         ],
         'db' => $db,
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
+        'i18n' => [
+            'translations' => [
+                'main*' => [
+                    'class' => yii\i18n\PhpMessageSource::class,
+                    'basePath' => '@app/i18n',
+                    'sourceLanguage' => 'en-US',
+                ],
+            ],
+        ],
     ],
     'params' => $params,
     /*
