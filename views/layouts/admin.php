@@ -27,7 +27,9 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <?php
+
+    <?php if (!Yii::$app->user->isGuest): ?>
+        <?php
     NavBar::begin([
         'brandLabel' => Yii::t('main', 'Dashboard'),
         'brandUrl' => '/admin/dashboard',
@@ -39,40 +41,42 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => Yii::t('main', 'Posts'), 'url' => ['/admin/posts/list']],
-            Yii::$app->user->isGuest ? (
-            ['label' => Yii::t('main', 'Login'), 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    Yii::t('main', 'Login'),
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
+            Yii::$app->user->isGuest
+                ? (['label' => Yii::t('main', 'Login'), 'url' => ['/admin/dashboard/login']])
+                : ('<li>'
+                    . Html::beginForm(['/admin/dashboard/logout'], 'post')
+                    . Html::submitButton(Yii::t('main', 'Logout'), ['class' => 'btn btn-link logout'])
+                    . Html::endForm()
+                    . '</li>')
         ],
     ]);
     NavBar::end();
     ?>
+    <?php endif; ?>
 
     <div class="container">
-        <?= Breadcrumbs::widget([
-            'homeLink' => ['url' => '/admin/dashboard', 'label' => Yii::t('main', 'Dashboard')],
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
+
+        <?php if (!Yii::$app->user->isGuest): ?>
+            <?= Breadcrumbs::widget([
+                'homeLink' => ['url' => '/admin/dashboard', 'label' => Yii::t('main', 'Dashboard')],
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            ]) ?>
+            <?= Alert::widget() ?>
+        <?php endif; ?>
+
         <?= $content ?>
     </div>
 </div>
 
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+<?php if (!Yii::$app->user->isGuest): ?>
+    <footer class="footer">
+        <div class="container">
+            <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
+            <p class="pull-right"><?= Yii::powered() ?></p>
+        </div>
+    </footer>
+<?php endif; ?>
 
 <?php $this->endBody() ?>
 </body>

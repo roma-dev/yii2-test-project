@@ -56,6 +56,8 @@ class Users extends ActiveRecord implements IdentityInterface
         return [
             [['login', 'email', 'password'], 'required'],
             [['login', 'email', 'password'], 'string', 'max' => 255],
+            ['login', 'unique'],
+            ['email', 'unique'],
             ['email', 'email'],
             [['status', 'created_at', 'updated_at'], 'integer'],
             ['status', 'default', 'value' => self::STATUS_CREATED],

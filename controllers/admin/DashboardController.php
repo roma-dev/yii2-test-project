@@ -31,4 +31,11 @@ class DashboardController extends Admin
             'model' => $model,
         ]);
     }
+
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+
+        return $this->goHome();
+    }
 }
